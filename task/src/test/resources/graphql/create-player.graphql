@@ -1,0 +1,6 @@
+mutation {
+    createPlayer(player: {name: "caner", surname: "erken", position: C}){
+        id
+        name
+    }
+}

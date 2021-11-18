@@ -3,7 +3,9 @@ package com.producter.task.api;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.producter.task.entity.Player;
 import com.producter.task.repo.IPlayerRepository;
+import com.producter.task.service.PlayerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,9 +14,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlayerQueryResolver implements GraphQLQueryResolver {
 
-    private final IPlayerRepository playerRepository;
+    @Autowired
+    PlayerService playerService;
 
     public List<Player> getPlayers(){
-        return playerRepository.findAll();
+        return playerService.getPlayers();
     }
 }

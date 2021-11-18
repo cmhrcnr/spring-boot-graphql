@@ -4,23 +4,24 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.producter.task.dto.PlayerDto;
 import com.producter.task.entity.Player;
 import com.producter.task.repo.IPlayerRepository;
+import com.producter.task.service.PlayerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class PlayerMutationResolver implements GraphQLMutationResolver {
 
-    private final IPlayerRepository playerRepository;
+    @Autowired
+    PlayerService playerService;
 
     public Player createPlayer(PlayerDto player) {
-        return playerRepository.save(dtoToEntity(player));
+        return playerService.createPlayer(player);
     }
 
     public Boolean deletePlayer(PlayerDto player){
-        Player deletedPlayer = playerRepository.getById(player.getId());
-        playerRepository.delete(deletedPlayer);
-        return true;
+        return playerService.deletePlayer(player);
     }
 
     private Player dtoToEntity(PlayerDto playerDto){
